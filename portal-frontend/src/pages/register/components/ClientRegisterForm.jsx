@@ -57,7 +57,6 @@ export default function ClientRegisterForm({ AccountType }){
 
           console.log('Register user', user);
           await register(user);
-          toastService.success('Naudotojas sėkmingai užregistruotas!');
 
           navigate('/login');
         }}
