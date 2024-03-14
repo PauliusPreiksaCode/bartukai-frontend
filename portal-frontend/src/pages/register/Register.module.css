@@ -1,0 +1,10 @@
+
+.formSelector {
+    display: flex;
+    justify-content: center;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+}
