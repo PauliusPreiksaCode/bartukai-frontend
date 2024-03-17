@@ -19,9 +19,23 @@ export default function Register() {
 
   return (
     <>
-      <h1>Registracijos puslapis</h1>
-      <Button variant="contained" onClick={() => { navigate(-1);}}>Atgal</Button>
-      <Button variant="contained" onClick={() => { navigate('/login');}}>Prisijungti</Button>
+      <div className='flex flex-col justify-center mt-6'>
+        <h1 className='main-header'>Registracijos Puslapis</h1>
+        <div className='flex flex-row justify-center gap-10 my-5'>
+          <button 
+           className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate(-1);}}>
+            Atgal
+          </button>
+
+          <button
+           className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate('/login');}}>
+            Prisijungti
+          </button>
+        </div>
+      </div>
+
       <div className={styles.formSelector}>
         <FormControlLabel
           control={<Switch checked={checked} onChange={handleChange} />}

@@ -16,9 +16,15 @@ export default function Login() {
 
   return (
     <>
-      <h1>Prisijungimo puslapis</h1>
-      <Button variant="contained" onClick={() => { navigate('/');}}>Pagrindinis puslapis</Button>
-
+      <div className='flex flex-col justify-center items-center mt-6'>
+        <h1 className='main-header'>Prisijungimo Puslapis</h1>
+        <div className='flex flex-row justify-center gap-10 my-5'>
+          <button 
+           className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate('/');}}>
+            Pagrindinis puslapis
+          </button>
+        </div>
       <Formik
         initialValues={initialValues}
         onSubmit={async (values) => {
@@ -31,8 +37,8 @@ export default function Login() {
         validationSchema={loginTemplateValidation}
       >
         {({ values, handleChange, handleBlur, errors, touched, isSubmitting }) => (
-          <Form>
-            <Card style={{ width: '20%' }}>
+          <Form className='flex items-center justify-center my-5'>
+            <Card className='flex justify-center flex-col items-center' style={{ width: '30%' }}>
               <DialogContent>
                 <Grid container rowSpacing={1} spacing={1}>
                   <Grid item xs={12} style={{ fontWeight: 'bold' }}>Prisijungimas vardas:</Grid>
@@ -64,17 +70,19 @@ export default function Login() {
                   </Grid>
                 </Grid>
               </DialogContent>
-              <Button 
+              <button
+                className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500 mb-5 cursor-pointer'
                 type="submit" 
-                variant="contained" 
                 disabled={isSubmitting}
               >
                 Prisijungti
-              </Button>
+              </button>
             </Card>
           </Form>
         )}
       </Formik>
+      </div>
+
     </>
   );
 };

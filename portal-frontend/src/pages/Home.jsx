@@ -22,11 +22,17 @@ const Home = () => {
     navigate('/');
   };
 
-  return (
-    <>
-      <h1>Pagrindinis puslapis</h1>
+  const handleRoomsClick = (event) => {
+    navigate('/admin-panel/rooms');
+  };
 
-      {user.isLoggedIn ? 
+  return (
+
+      <div className='flex flex-row justify-center mt-6'>
+        <h1 className='main-header'>Pagrindinis Puslapis</h1>
+      </div>
+
+      /* {user.isLoggedIn ? 
         (
           <>
             <Button variant="contained" onClick={handleLogoutClick}>Atsijungti</Button>
@@ -36,10 +42,11 @@ const Home = () => {
           <>
             <Button variant="contained" onClick={handleLoginClick}>Prisijungti</Button>
             <Button variant="contained" onClick={handleRegisterClick}>Registuotis</Button>
+            <Button variant="contained" onClick={handleRoomsClick}>Peržiūrėti patalpas</Button>
           </>
         )
-      }
-    </>
+      } */
+
   );
 };
 

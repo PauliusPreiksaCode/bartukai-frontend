@@ -6,6 +6,8 @@ export const PrivateRoute = ({ children, accessLevel }) => {
   
   const userContext = useContext(UserContext);
   const userAccessLevel = userContext?.user?.decodedJwt?.role;
+
+  {userAccessLevel == '0' && <></>}
   
   if (userAccessLevel !== undefined && accessLevel.includes(userAccessLevel) ) {
     return children;

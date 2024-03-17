@@ -1,5 +1,6 @@
 import instance from './axios-client';
 import authService from './auth';
+import toastService from './toastService';
 
 export async function login(user) {
   return await instance
@@ -49,5 +50,77 @@ export async function renewToken() {
     .then((res) => res.data)
     .catch((err) => {
       throw err;
+    });
+};
+
+export async function createRoom(room) {
+  return await instance
+    .post('room', room)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
+export async function getRoomsList() {
+  return await instance
+    .get('room/list')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export async function updateRoom(room) {
+  return await instance
+    .put('room', room)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
+export async function removeRoom(roomId){
+  return await instance
+    .delete(`room/${roomId}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
+export async function getEquipmentList(){
+  return await instance
+    .get('equipment/list')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export async function createEquipment(equipment){
+  return await instance
+    .post('equipment', equipment)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
+export async function updateEquipment(equipment){
+  return await instance
+    .put('equipment', equipment)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
+export async function deleteEquipment(equipmentId){
+  return await instance
+    .delete(`equipment/${equipmentId}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
     });
 };
