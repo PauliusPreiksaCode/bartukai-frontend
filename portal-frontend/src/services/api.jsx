@@ -146,7 +146,7 @@ export async function getServiceUnusedtimes(id) {
 
 export async function getServicesListSpecialist(params) {
   return await instance
-    .post('service/my-list', params)
+    .post('service/list', params)
     .then((res) => res.data)
     .catch((err) => {
       throw err;
