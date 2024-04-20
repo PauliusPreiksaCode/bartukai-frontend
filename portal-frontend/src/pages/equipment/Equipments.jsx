@@ -6,10 +6,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { EquipmentEditModal } from '../../components/Admin modals/EquipmentEditModal';
-import { EquipmentRemoveModal } from '../../components/Admin modals/EquipmentRemoveModal';
-import { EquipmentViewModal } from '../../components/Admin modals/EquipmentViewModal';
-import { EquipmentCreateModal } from '../../components/Admin modals/EquipmentCreateModal';
+import { EquipmentEditModal } from './components/EquipmentEditModal';
+import { EquipmentRemoveModal } from './components/EquipmentRemoveModal';
+import { EquipmentViewModal } from './components/EquipmentViewModal';
+import { EquipmentCreateModal } from './components/EquipmentCreateModal';
 import { useCreateEquipment, useEquipmentList, useRemoveEquipment, useUpdateEquipment } from '../../hooks/equipment';
 
 const Equipment = () => {

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { Grid, Button, IconButton } from '@mui/material';
-import { RoomViewModal } from '../../components/Admin modals/RoomViewModal';
+import { RoomViewModal } from './components/RoomViewModal';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { RoomEditModal } from '../../components/Admin modals/RoomEditModal';
-import { RoomRemoveModal } from '../../components/Admin modals/RoomRemoveModal';
-import { RoomCreateModal } from '../../components/Admin modals/RoomCreateModal';
+import { RoomEditModal } from './components/RoomEditModal';
+import { RoomRemoveModal } from './components/RoomRemoveModal';
+import { RoomCreateModal } from './components/RoomCreateModal';
 import { useCreateRoom, useRemoveRoom, useRoomsList, useUpdateRoom } from '../../hooks/rooms';
 
 const Rooms = () => {

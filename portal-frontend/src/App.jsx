@@ -4,10 +4,10 @@ import Home from './pages/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import { PrivateRoute } from './components/PrivateRoute';
-import Rooms from './pages/adminPanel/Rooms';
+import Rooms from './pages/room/Rooms';
 import './index.css'
 import Navbar from './components/Navbar';
-import Equipment from './pages/adminPanel/Equipments';
+import Equipment from './pages/equipment/Equipments';
 
 const App = () => {
   return (

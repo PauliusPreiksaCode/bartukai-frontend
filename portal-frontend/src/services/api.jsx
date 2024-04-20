@@ -12,6 +12,7 @@ export async function login(user) {
       return {token , refreshToken};
     })
     .catch((err) => {
+      toastService.error(err.response.data);
     });
 };
 
@@ -29,7 +30,7 @@ export async function register(user) {
     return response.data;
   } catch (error) {
     console.error('Error registering user:', error);
-    throw error;
+    toastService.error(error.response.data);
   } finally {
     instance.defaults.headers['Content-Type'] = originalContentType;
   }
@@ -40,7 +41,7 @@ export async function getUser() {
     .get('user')
     .then((res) => res.data)
     .catch((err) => {
-      throw err;
+      toastService.error(err.response.data);
     });
 };
 
@@ -49,7 +50,7 @@ export async function renewToken() {
     .get('renew-token')
     .then((res) => res.data)
     .catch((err) => {
-      throw err;
+      toastService.error(err.response.data);
     });
 };
 

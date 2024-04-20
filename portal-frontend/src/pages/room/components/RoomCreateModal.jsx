@@ -11,7 +11,7 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { createRoomTemplateValidation } from '../../validation/createRoomTemplate';
+import { createRoomTemplateValidation } from '../../../validation/createRoomTemplate';
 
 export const RoomCreateModal = ({ open, handleClose, onCreateRoom}) => {
 
