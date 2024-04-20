@@ -125,3 +125,75 @@ export async function deleteEquipment(equipmentId){
       toastService.error(err.response.data);
     });
 };
+
+export async function getServicesList(params) {
+  return await instance
+    .post('service/list', params)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+} 
+
+export async function getServiceUnusedtimes(id) {
+  return await instance
+    .get(`service/unused-times/${id}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+}
+
+export async function getServicesListSpecialist(params) {
+  return await instance
+    .post('service/my-list', params)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+} 
+
+export async function createService(service) {
+  return await instance
+    .post('service', service)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function getServiceCategories() {
+  return await instance
+    .get('service/categories-list')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+}
+
+export async function approveService(serviceId) {
+  return await instance
+    .post('service/approve', serviceId)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function getAvailableRooms(dateFrom, dateTo) {
+  return await instance
+    .get(`room/available-list?dateFrom=${dateFrom}&dateTo=${dateTo}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export async function getAvailableEquipment(dateFrom, dateTo) {
+  return await instance
+    .get(`equipment/available-list?dateFrom=${dateFrom}&dateTo=${dateTo}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+}

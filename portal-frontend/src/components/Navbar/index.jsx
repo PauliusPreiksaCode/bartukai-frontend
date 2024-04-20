@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import {Link, useNavigate} from 'react-router-dom'
 import { UserContext } from '../../services/authProvider';
 
@@ -12,8 +12,6 @@ const Navbar = () => {
 
   const userContext = useContext(UserContext);
   const userAccessLevel = userContext?.user?.decodedJwt?.role;
-
-  {userAccessLevel == '0' && <></>}
 
   const toggleMenu = () => {
     setShowMenu(prev => !prev)
@@ -57,6 +55,24 @@ const Navbar = () => {
         <li className='navbar-ul-item'>
           <Link to="/admin-panel/equipment">Peržiūrėti įrangą</Link>
         </li>
+        )}
+
+        {userAccessLevel === '0' && (
+          <li className='navbar-ul-item'>
+            <Link to="/admin-panel/services">Peržiūrėti paslaugas</Link>
+          </li>
+        )}
+
+        {userAccessLevel === '2' && (
+        <li className='navbar-ul-item'>
+          <Link to="/specialist-panel/services">Peržiūrėti paslaugas</Link>
+        </li>
+        )}
+
+        {userAccessLevel === '1' && (
+          <li className='navbar-ul-item'>
+            <Link to="/services">Peržiūrėti paslaugas</Link>
+          </li>
         )}
 
         {userAccessLevel !== undefined && (
