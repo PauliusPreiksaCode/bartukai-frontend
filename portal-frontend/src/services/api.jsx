@@ -26,7 +26,7 @@ export async function register(user) {
       },
     });
     console.log(response.data);
-
+    toastService.success('Registracija sėkminga! Prisijunkite!');
     return response.data;
   } catch (error) {
     console.error('Error registering user:', error);
