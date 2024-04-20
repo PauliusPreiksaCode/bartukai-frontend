@@ -1,0 +1,68 @@
+.card {
+    padding: 20px;
+    margin: 20px;
+}
+
+.title1 {
+    display: flex;
+    margin: auto;
+    font-weight: 800;
+    font-size: large;
+    padding: 0.5rem;
+    margin-top: 25px;
+}
+
+.title2 {
+    display: flex;
+    margin: auto;
+    font-weight: 800;
+    font-size: large;
+    padding: 0.5rem;
+}
+
+.orderSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 1rem;
+    font-weight: 800;
+    font-size: large;
+
+}
+
+.selector {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    
+}
+
+.optionCard {
+    padding: 20px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+}
+
+.optionCard:hover {
+    background-color: rgb(221, 244, 255);
+}
+
+.optionCardContainer {
+    font-weight: 800;
+    font-size: large;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+}
+
+.optionCardText {
+    margin: 10px;
+}

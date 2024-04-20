@@ -63,6 +63,12 @@ const Navbar = () => {
           </li>
         )}
 
+        {userAccessLevel === '0' && (
+          <li className='navbar-ul-item'>
+            <Link to="/admin-panel/orders">Peržiūrėti užsakymus</Link>
+          </li>
+        )}
+
         {userAccessLevel === '2' && (
         <li className='navbar-ul-item'>
           <Link to="/specialist-panel/services">Peržiūrėti paslaugas</Link>
@@ -72,6 +78,12 @@ const Navbar = () => {
         {userAccessLevel === '1' && (
           <li className='navbar-ul-item'>
             <Link to="/services">Peržiūrėti paslaugas</Link>
+          </li>
+        )}
+
+        {userAccessLevel === '1' && (
+          <li className='navbar-ul-item'>
+            <Link to="/client-panel/orders">Peržiūrėti užsakymus</Link>
           </li>
         )}
 

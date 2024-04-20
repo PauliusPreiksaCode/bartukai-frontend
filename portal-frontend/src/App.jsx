@@ -12,6 +12,9 @@ import { default as SpecialistServices } from './pages/service/specialist/Servic
 import { default as AdminServices } from './pages/service/admin/Services';
 import NonApprovedServices from './pages/service/admin/NonApprovedServices';
 import { default as UserServices } from './pages/service/user/Services';
+import Order from './pages/order/user/Order';
+import { default as ClientOrders } from './pages/order/user/Orders';
+import { default as AdminOrders } from './pages/order/admin/Orders';
 
 const App = () => {
   return (
@@ -51,6 +54,13 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path='/admin-panel/orders' element=
+          {
+            <PrivateRoute accessLevel={['0']}>
+              <AdminOrders />
+            </PrivateRoute>
+          }
+        />
               
         <Route path='/specialist-panel/services' element=
           {
@@ -67,6 +77,21 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path='/order' element=
+          {
+            <PrivateRoute accessLevel={['1']}>
+              <Order />
+            </PrivateRoute>
+          }
+        />
+        <Route path='/client-panel/orders' element=
+          {
+            <PrivateRoute accessLevel={['1']}>
+              <ClientOrders />
+            </PrivateRoute>
+          }
+        />
+
       </Routes>
     </>
   );

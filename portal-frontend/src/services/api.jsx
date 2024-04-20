@@ -197,3 +197,30 @@ export async function getAvailableEquipment(dateFrom, dateTo) {
       throw err;
     });
 }
+
+export async function getOrdersList() {
+  return await instance
+    .get('order/list')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+}
+
+export async function createOrder(params) {
+  return await instance
+    .post('order', params)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function getMyOrdersList() {
+  return await instance
+    .get('order/my-list')
+    .then((res) => res.data)
+    .catch((err) => {
+      throw err;
+    });
+}
