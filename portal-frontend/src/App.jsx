@@ -7,7 +7,7 @@ import { PrivateRoute } from './components/PrivateRoute';
 import Rooms from './pages/room/Rooms';
 import './index.css'
 import Navbar from './components/Navbar';
-import Equipment from './pages/equipment/Equipments';
+import Equipment from './pages/equipment/Equipment';
 import { default as SpecialistServices } from './pages/service/specialist/Services';
 import { default as AdminServices } from './pages/service/admin/Services';
 import NonApprovedServices from './pages/service/admin/NonApprovedServices';
