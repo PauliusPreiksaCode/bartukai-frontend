@@ -134,8 +134,17 @@ export default function NonApprovedServices() {
 
   return (
     <>
-      <h1>Nepatvirtintų paslaugų sąrašas</h1>
-      <Button variant="contained" onClick={handleBackClick}>Atgal</Button>
+
+      <div className='flex flex-col justify-center mt-6'>
+        <h1 className='main-header'>Nepatvirtintų paslaugų sąrašas</h1>
+        <div className='flex flex-row justify-center gap-10 my-5'>
+          <button 
+           className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate(-1);}}>
+            Atgal
+          </button>
+        </div>
+      </div>
 
       <div style={{margin: 20}}>
         <Grid style={{margin: '10 auto', width: 1400}}>

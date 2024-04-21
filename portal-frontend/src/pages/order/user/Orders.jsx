@@ -137,8 +137,17 @@ const Orders = () => {
 
   return (
     <>
-      <h1>Užsakymų sąrašas</h1>
-      <Button variant="contained" onClick={handleBackClick}>Atgal</Button>
+
+      <div className='flex flex-col justify-center mt-6'>
+        <h1 className='main-header'>Užsakymų sąrašas</h1>
+        <div className='flex flex-row justify-center gap-10 my-5'>
+          <button 
+           className='bg-black w-[150px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate('/');}}>
+            Atgal
+          </button>
+        </div>
+      </div>
 
       <Grid style={{margin: '0 auto', width: 1000}}>
         <DataGrid
