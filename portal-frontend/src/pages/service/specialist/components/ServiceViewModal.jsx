@@ -32,8 +32,6 @@ export const ServiceViewModal = ({ open, handleClose, service}) => {
     1: 'Atšauktas'
   };
 
-  console.log(service);
-
   return (
     <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'xl'}>
       <DialogTitle>Paslaugos informacija</DialogTitle>

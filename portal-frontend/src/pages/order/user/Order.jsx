@@ -41,11 +41,8 @@ export default function Order() {
     };
 
     createOrder.mutateAsync(params);
-    console.log('CREATED');
     navigate('/client-panel/orders');
   };
-
-  console.log(service);
 
 
   return (

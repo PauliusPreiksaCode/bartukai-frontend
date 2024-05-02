@@ -10,8 +10,6 @@ async function renewToken () {
     });
     const token = result.data.token;
     const refreshJwtToken = result.data.refreshToken;
-    console.log('user token updated from', Cookies.get('jwtToken'));
-    console.log('user token updated to', token);
     setCookies(token, refreshJwtToken);
     return getUserInfo();
   } catch (error) {

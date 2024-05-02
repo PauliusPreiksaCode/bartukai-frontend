@@ -90,8 +90,6 @@ export default function SpecialistRegisterForm({ AccountType }){
             Description: values.Description,
           };
 
-          console.log('Register user', user);
-
           await register(user);
           navigate('/login');
         }}

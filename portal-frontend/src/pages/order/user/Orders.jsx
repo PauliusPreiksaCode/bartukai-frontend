@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Grid, IconButton } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -8,13 +8,10 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { OrderViewModal } from './components/OrderViewModal';
 import dayjs from 'dayjs';
 import { useMyOrdersList } from '../../../hooks/order';
+import { OrderEditModal } from './components/OrderEditModal';
 
 const Orders = () => {
   const navigate = useNavigate();
-
-  const handleBackClick = (event) => {
-    navigate('/');
-  };
 
   const paymentMethod = {
     0: 'Gryni',
@@ -101,11 +98,8 @@ const Orders = () => {
               <RemoveRedEyeIcon />
             </IconButton>
             {canEdit ? (<>
-              <IconButton aria-label="edit" sx={{ color: 'orange' }} onClick={() => {}}>
+              <IconButton aria-label="edit" sx={{ color: 'orange' }} onClick={() => handleOrderEdit(params.row)}>
                 <ModeEditIcon />
-              </IconButton>
-              <IconButton aria-label="remove" sx={{ color: 'red' }} onClick={() => {}}>
-                <DeleteForeverIcon />
               </IconButton>
             </>) : null}
             
@@ -117,12 +111,12 @@ const Orders = () => {
 
   const [gridRows, setGridRows] = useState([]);
   const [showOrderViewModal, setShowOrderViewModal] = useState(false);
+  const [showOrderEditModal, setShowOrderEditModal] = useState(false);
   const [order, setOrder] = useState();
 
   const { data, isLoading, isFetching} = useMyOrdersList();
   useEffect(() => {
     setGridRows(data || []);
-    console.log(data);
   }, [data]);
 
   const handleOrderView = (row) => {
@@ -132,6 +126,16 @@ const Orders = () => {
 
   const handleOrderViewModalClose = () => {
     setShowOrderViewModal(false);
+    setOrder(undefined);
+  };
+
+  const handleOrderEdit = (row) => {
+    setOrder(row);
+    setShowOrderEditModal(true);
+  };
+
+  const handleOrderEditModalClose = () => {
+    setShowOrderEditModal(false);
     setOrder(undefined);
   };
 
@@ -174,6 +178,13 @@ const Orders = () => {
         <OrderViewModal
           open={showOrderViewModal}
           handleClose={handleOrderViewModalClose}
+          order={order}
+        />
+      )}
+      {showOrderEditModal && (
+        <OrderEditModal
+          open={showOrderEditModal}
+          handleClose={handleOrderEditModalClose}
           order={order}
         />
       )}

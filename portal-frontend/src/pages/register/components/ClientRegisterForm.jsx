@@ -55,7 +55,6 @@ export default function ClientRegisterForm({ AccountType }){
             Description: initialValues.Description,
           };
 
-          console.log('Register user', user);
           await register(user);
 
           navigate('/login');

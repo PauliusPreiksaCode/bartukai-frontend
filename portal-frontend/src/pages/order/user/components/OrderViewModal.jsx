@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -8,8 +8,15 @@ import {
   Grid,
 } from '@mui/material';
 import dayjs from 'dayjs';
+import { OrderRemoveModal } from './OrderRemoveModal';
 
 export const OrderViewModal = ({ open, handleClose, order}) => {
+
+  const [showOrderRemoveModal, setShowOrderRemoveModal] = useState(false);
+
+  const currentDateObject = dayjs(dayjs().format('YYYY-MM-DD HH:mm:ss'));
+  const dateObject = dayjs(order.dateTo);
+  const canDelete = order.orderStatus === 0 && currentDateObject.isBefore(dateObject) ? true : false;
 
   const paymentMethod = {
     0: 'Gryni',
@@ -29,6 +36,11 @@ export const OrderViewModal = ({ open, handleClose, order}) => {
   };
 
   const currentDate = dayjs().format('YYYY-MM-DD');
+
+  const handleOrderRemoveModalClose = () => {
+    setShowOrderRemoveModal(false);
+    handleClose();
+  };
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth={true} maxWidth={'xl'}>
@@ -170,6 +182,16 @@ export const OrderViewModal = ({ open, handleClose, order}) => {
       </DialogContent>
       <DialogActions>
         <Button variant="contained" onClick={handleClose}>Uždaryti</Button>
+        {canDelete && (
+          <>
+            <Button variant="contained" color="error" onClick={() => setShowOrderRemoveModal(true)} >Ištrinti</Button>
+            <OrderRemoveModal 
+              open={showOrderRemoveModal} 
+              handleClose={() => handleOrderRemoveModalClose()} 
+              order={order}
+            />
+          </>
+        )}
       </DialogActions>
     </Dialog>
   );

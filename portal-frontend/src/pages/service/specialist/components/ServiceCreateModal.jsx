@@ -445,7 +445,6 @@ export const ServiceCreateModal = ({ open, handleClose, onCreateService }) => {
             values.serviceLocation = serviceTypeCode;
             values.isAvailable = true;
             
-            console.log('Form Values:', values);
             //await createService(values);
             onCreateService.mutateAsync(values); 
             setSubmitting(false);

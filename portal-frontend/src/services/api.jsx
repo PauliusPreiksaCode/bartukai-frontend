@@ -25,7 +25,6 @@ export async function register(user) {
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log(response.data);
     toastService.success('Registracija sėkminga! Prisijunkite!');
     return response.data;
   } catch (error) {
@@ -210,6 +209,24 @@ export async function getOrdersList() {
 export async function createOrder(params) {
   return await instance
     .post('order', params)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function updateOrder(params) {
+  return await instance
+    .put('order', params)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function deleteOrder(id) {
+  return await instance
+    .delete(`order/${id}`)
     .then((res) => res.data)
     .catch((err) => {
       toastService.error(err.response.data);

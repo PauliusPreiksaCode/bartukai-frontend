@@ -98,7 +98,6 @@ const Orders = () => {
   const { data, isLoading, isFetching} = useOrdersList();
   useEffect(() => {
     setGridRows(data || []);
-    console.log(data);
   }, [data]);
 
   return (
