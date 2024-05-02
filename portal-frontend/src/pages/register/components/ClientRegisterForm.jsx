@@ -168,7 +168,7 @@ export default function ClientRegisterForm({ AccountType }){
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid container xs={12} className={styles.container}>
+                <Grid container className={styles.container}>
                   <Grid item xs={12} style={{ fontWeight: 'bold' }}>Lytis:</Grid>
                   <Grid item xs={12}>
                     <FormControl variant="outlined" fullWidth>
@@ -188,7 +188,7 @@ export default function ClientRegisterForm({ AccountType }){
                     </FormControl>
                   </Grid>
                 </Grid>
-                <Grid container xs={12} className={styles.container}>
+                <Grid container className={styles.container}>
                   <Grid item xs={6}>
                     <Grid item xs={12} style={{ fontWeight: 'bold' }}> Gimimo data: </Grid>
                     <Grid item xs={12}>

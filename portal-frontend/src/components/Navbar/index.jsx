@@ -88,6 +88,12 @@ const Navbar = () => {
         )}
 
         {userAccessLevel !== undefined && (
+          <li className='navbar-ul-item'>
+            <Link to="/profile">Profilis</Link>
+          </li>
+        )}
+
+        {userAccessLevel !== undefined && (
         <li className='navbar-ul-item'>
           <button onClick={handleLogoutClick}>Atsijungti</button>
         </li>

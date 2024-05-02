@@ -44,6 +44,34 @@ export async function getUser() {
     });
 };
 
+export async function editUser(user) {
+  const originalContentType = instance.defaults.headers['Content-Type'];
+
+  try {
+    const response = await instance.put('user', user, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    toastService.error(error.response.data);
+    console.error('Error editing user:', error);
+  } finally {
+    instance.defaults.headers['Content-Type'] = originalContentType;
+  }
+}
+
+export async function deleteUser(id) {
+  return await instance
+    .delete(`user/${id}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
 export async function renewToken() {
   return await instance
     .get('renew-token')

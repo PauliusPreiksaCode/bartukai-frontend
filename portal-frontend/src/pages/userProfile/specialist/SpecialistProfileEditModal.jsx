@@ -1,30 +1,42 @@
-import { Button, Card, DialogContent, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form } from 'formik';
+import {
+  Button,
+  Dialog,
+  Card,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  TextField
+} from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { specialistRegisterTemplate } from '../../../validation/specialistRegisterTemplate';
-import { register } from '../../../services/api';
-import styles from './Form.module.css';
+import { specialistEditTemplate } from '../../../validation/specialistEditTemplate';
+import { useEditUser } from '../../../hooks/user';
+import styles from '../UserProfile.module.css';
+import dayjs from 'dayjs';
 
-export default function SpecialistRegisterForm({ AccountType }){
-  const navigate = useNavigate();
+export const SpecialistProfileEditModal = ({ open, handleClose, user}) => {
+
+  const editUser = useEditUser();
 
   const initialValues = {
-    FirstName: '',
-    LastName: '',
-    UserName: '',
-    Email: '',
-    Password: '',
-    City: '',
-    BirthDate: '',
-    Gender: '',
-    PhoneNumber: '',
-    AccountType: 0,
-    Description: '',
-    Experience: '',
-    Education: '',
+    FirstName: user.firstName,
+    LastName: user.lastName,
+    UserName: user.userName,
+    Email: user.email,
+    City: user.city,
+    BirthDate: dayjs(user.birthDate.slice(0, 10)),
+    Gender: user.gender,
+    PhoneNumber: user.phoneNumber,
+    AccountType: 2,
+    Description: user.description,
+    Experience: user.experience,
+    Education: user.education,
   };
 
   const [ bday, setBday ] = useState(initialValues.BirthDate);
@@ -61,12 +73,13 @@ export default function SpecialistRegisterForm({ AccountType }){
   };
 
   return (
-    <>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle className={styles.title}>Naudotojo informacija</DialogTitle>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => {
+
+        onSubmit={(values, { setSubmitting }) => {
           values.BirthDate = bday;
-          values.AccountType = AccountType;
 
           const { data, contentType } = image;
           const PhotoFile = data;
@@ -75,11 +88,11 @@ export default function SpecialistRegisterForm({ AccountType }){
           const user = {
             LastName: values.LastName,
             Gender: values.Gender,
-            AccountType: values.AccountType,
+            AccountType: initialValues.AccountType,
             Education: values.Education,
             Experience: values.Experience,
             City: values.City,
-            BirthDate: values.BirthDate,
+            BirthDate: values.BirthDate.add(1, 'day'),
             PhotoFile,
             PhotoFileExtention,
             UserName: values.UserName,
@@ -90,13 +103,15 @@ export default function SpecialistRegisterForm({ AccountType }){
             Description: values.Description,
           };
 
-          await register(user);
-          navigate('/login');
+          editUser.mutateAsync(user);
+          setSubmitting(false);
+          handleClose();
         }}
-        validationSchema={specialistRegisterTemplate}
+
+        validationSchema={specialistEditTemplate}
       >
-        {({ values, handleChange, handleBlur, errors, touched, isSubmitting, formik, setFieldValue }) => (
-          <Card style={{ width: '60%' }}>
+        {({ values, handleChange, handleBlur, errors, touched, isSubmitting, setFieldValue }) => (
+          <Card className={styles.card}>
             <Form>
               <DialogContent>
                 <Grid container className={styles.container}>
@@ -135,57 +150,6 @@ export default function SpecialistRegisterForm({ AccountType }){
                 </Grid>
                 <Grid container className={styles.container}>
                   <Grid item xs={6}>
-                    <Grid item xs={12} style={{ fontWeight: 'bold' }}>Prisijungimo vardas:</Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        className={styles.textFiled}
-                        name="UserName"
-                        label="Prisijungimo vardas"
-                        value={values.UserName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        variant="outlined"
-                        error={errors.UserName && touched.UserName}
-                        helperText={errors.UserName && touched.UserName && errors.UserName}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Grid item xs={12} style={{ fontWeight: 'bold' }}>El. paštas:</Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        className={styles.textFiled}
-                        name="Email"
-                        label="Prisijungimo vardas"
-                        value={values.Email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        variant="outlined"
-                        error={errors.Email && touched.Email}
-                        helperText={errors.Email && touched.Email && errors.Email}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid container className={styles.container}>
-                  <Grid item xs={6}>
-                    <Grid item xs={12} style={{ fontWeight: 'bold' }}>Slaptažodis:</Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        className={styles.textFiled}
-                        name="Password"
-                        type="password"
-                        label="Prisijungimo slaptažodis"
-                        value={values.Password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        variant="outlined"
-                        error={errors.Password && touched.Password}
-                        helperText={errors.Password && touched.Password && errors.Password}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={6}>
                     <Grid item xs={12} style={{ fontWeight: 'bold' }}>Miestas:</Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -201,25 +165,25 @@ export default function SpecialistRegisterForm({ AccountType }){
                       />
                     </Grid>
                   </Grid>
-                </Grid>
-                <Grid container className={styles.container}>
-                  <Grid item xs={12} style={{ fontWeight: 'bold' }}>Lytis:</Grid>
-                  <Grid item xs={12}>
-                    <FormControl variant="outlined" fullWidth>
-                      <InputLabel id="Gender">Pasirinkite lytį</InputLabel>
-                      <Select
-                        className={styles.dropdown}
-                        labelId="Gender"
-                        name="Gender"
-                        value={values.Gender}
-                        onChange={handleChange}
-                        label="Pasirinkite lytį"
-                      >
-                        <MenuItem value="0">Vyras</MenuItem>
-                        <MenuItem value="1">Moteris</MenuItem>
-                        <MenuItem value="2">Kitas</MenuItem>
-                      </Select>
-                    </FormControl>
+                  <Grid item xs={6}>
+                    <Grid item xs={12} style={{ fontWeight: 'bold' }}>Lytis:</Grid>
+                    <Grid item xs={12}>
+                      <FormControl variant="outlined" fullWidth>
+                        <InputLabel id="Gender">Pasirinkite lytį</InputLabel>
+                        <Select
+                          className={styles.dropdown}
+                          labelId="Gender"
+                          name="Gender"
+                          value={values.Gender}
+                          onChange={handleChange}
+                          label="Pasirinkite lytį"
+                        >
+                          <MenuItem value="0">Vyras</MenuItem>
+                          <MenuItem value="1">Moteris</MenuItem>
+                          <MenuItem value="2">Kitas</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid container className={styles.container}>
@@ -320,19 +284,32 @@ export default function SpecialistRegisterForm({ AccountType }){
                     </Grid>
                   </Grid>
                 </Grid>
-                <Button 
-                  className={styles.submitbutton}
-                  type="submit" 
-                  variant="contained" 
-                  disabled={isSubmitting}
-                >
-                  Registruotis
-                </Button>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Button 
+                      className={styles.submitbutton}
+                      type="submit" 
+                      variant="contained" 
+                      disabled={isSubmitting}
+                    >
+                Atnaujinti
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button 
+                      className={styles.submitbutton}
+                      variant="contained" 
+                      onClick={handleClose}
+                    >
+                Uždaryti
+                    </Button>
+                  </Grid>
+                </Grid>
               </DialogContent>
             </Form>
           </Card>
         )}
       </Formik>
-    </>
+    </Dialog>
   );
 };

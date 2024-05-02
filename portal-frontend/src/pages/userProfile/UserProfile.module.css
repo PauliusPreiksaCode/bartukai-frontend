@@ -1,0 +1,31 @@
+.card {
+    width: 100%;
+}
+
+.profileCard {
+    padding: 20px;
+    margin: 5px;
+}
+
+.container {
+    margin-bottom: 5px;
+}
+
+.textFiled {
+    margin-top: 7px;
+    width: 90%;
+}
+
+.dropdown {
+    width: 90%;
+}
+
+.submitbutton {
+    display: flex;
+    margin: auto;
+}
+
+.title {
+    display: flex;
+    margin: auto;
+}

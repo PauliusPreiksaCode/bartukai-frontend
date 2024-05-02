@@ -15,6 +15,7 @@ import { default as UserServices } from './pages/service/user/Services';
 import Order from './pages/order/user/Order';
 import { default as ClientOrders } from './pages/order/user/Orders';
 import { default as AdminOrders } from './pages/order/admin/Orders';
+import UserProfile from './pages/userProfile/UserProfile';
 
 const App = () => {
   return (
@@ -24,6 +25,14 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route path='/profile' element=
+          {
+            <PrivateRoute accessLevel={['0', '1', '2']}>
+              <UserProfile />
+            </PrivateRoute>
+          }
+        />
 
         <Route path="/admin-panel/rooms" element=
           {
