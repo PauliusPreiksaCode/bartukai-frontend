@@ -7,9 +7,11 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { DataGrid } from '@mui/x-data-grid';
 import { ServiceViewModal } from './components/ServiceViewModal';
 import { ServiceCreateModal } from './components/ServiceCreateModal';
-import { useServicesListSpecialist, useCreateService } from '../../../hooks/service'
+import { useServicesListSpecialist, useCreateService, useUpdateService, useRemoveService } from '../../../hooks/service'
 import { getServiceCategories } from '../../../services/api';
 import { debounce } from 'lodash';
+import { ServiceEditModal } from './components/ServiceEditModal';
+import { ServiceRemoveModal } from './components/ServiceRemoveModal';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -81,10 +83,10 @@ const Services = () => {
             <IconButton aria-label="view" sx={{ color: 'blue' }} onClick={() => handleServiceView(params.row)}>
               <RemoveRedEyeIcon />
             </IconButton>
-            <IconButton aria-label="edit" sx={{ color: 'orange' }} onClick={() => {}}>
+            <IconButton aria-label="edit" sx={{ color: 'orange' }} onClick={() => handleServiceEdit(params.row)}>
               <ModeEditIcon />
             </IconButton>
-            <IconButton aria-label="remove" sx={{ color: 'red' }} onClick={() => {}}>
+            <IconButton aria-label="remove" sx={{ color: 'red' }} onClick={() => handleServiceRemove(params.row)}>
               <DeleteForeverIcon />
             </IconButton>
           </>
@@ -96,6 +98,8 @@ const Services = () => {
   const [gridRows, setGridRows] = useState([]);
   const [showServiceViewModal, setShowServiceViewModal] = useState(false);
   const [showServiceCreateModal, setShowServiceCreateModal] = useState(false);
+  const [showServiceEditModal, setShowServiceEditModal] = useState(false);
+  const [showServiceRemoveModal, setShowServiceRemoveModal] = useState(false);
   const [service, setService] = useState();
 
   const [categories, setCategories] = useState([]);
@@ -142,6 +146,8 @@ const Services = () => {
   }, [serviceName, rangeValue, selectedCategories, debouncedSetQueryParams]);
 
   const createService = useCreateService();
+  const updateService = useUpdateService();
+  const removeService = useRemoveService();
 
   const handleServiceView = (row) => {
     setService(row);
@@ -159,6 +165,26 @@ const Services = () => {
 
   const handleServiceCreateModalClose = () => {
     setShowServiceCreateModal(false);
+  };
+
+  const handleServiceEdit = (row) => {
+    setService(row);
+    setShowServiceEditModal(true);
+  };
+
+  const handleServiceEditModalClose = () => {
+    setShowServiceEditModal(false);
+    setService(undefined);
+  };
+
+  const handleServiceRemove = (row) => {
+    setService(row);
+    setShowServiceRemoveModal(true);
+  };
+
+  const handleServiceRemoveModalClose = () => {
+    setShowServiceRemoveModal(false);
+    setService(undefined);
   };
 
   return (
@@ -260,6 +286,22 @@ const Services = () => {
             open={showServiceCreateModal}
             handleClose={handleServiceCreateModalClose}
             onCreateService={createService}
+          />
+        )}
+        {showServiceEditModal && (
+          <ServiceEditModal
+            open={showServiceEditModal}
+            handleClose={handleServiceEditModalClose}
+            service={service}
+            onUpdateService={updateService}
+          />
+        )}
+        {showServiceRemoveModal && (
+          <ServiceRemoveModal
+            open={showServiceRemoveModal}
+            handleClose={handleServiceRemoveModalClose}
+            service={service}
+            onRemoveService={removeService}
           />
         )}
       </div>
