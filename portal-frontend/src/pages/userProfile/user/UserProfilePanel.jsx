@@ -11,21 +11,22 @@ export default function UserProfilePanel ({user}) {
   };
 
   return (
-    <Card className={styles.profileCard}>
-      <Grid container rowSpacing={2} spacing={1}>
-        <Grid item xs={5} style={{ fontWeight: 'bold' }}>
-          Paskutinė užsakyta paslauga:
-        </Grid>
-        <Grid item xs={7}>
-          {user.lastOrderedService ? user.lastOrderedService : '-'}
-        </Grid>
-        <Grid item xs={5} style={{ fontWeight: 'bold' }}>
-          Lojalumo lygis:
-        </Grid>
-        <Grid item xs={7}>
-          {loyaltyGroup[user.loyaltyGroup]}
-        </Grid>
-      </Grid>
-    </Card>
+    <>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Paskutinė užsakyta paslauga:</p>
+        </div>
+          <p className='font-sans font-bold'>{user.lastOrderedService ? user.lastOrderedService : '-'}</p>
+      </div>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Lojalumo lygis:</p>
+        </div>
+          <p className='font-sans font-bold'>{loyaltyGroup[user.loyaltyGroup]}</p>
+      </div>
+    </>
+    
   );
 }

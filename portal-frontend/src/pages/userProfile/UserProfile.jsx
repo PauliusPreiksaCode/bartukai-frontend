@@ -14,6 +14,8 @@ import { useGetUser } from '../../hooks/user';
 import { SpecialistProfileEditModal } from './specialist/SpecialistProfileEditModal';
 import { UserProfileEditModal } from './user/UserProfileEditModal';
 import { ProfileRemoveModal } from './components/ProfileRemoveModal';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Gender = {
   0: 'Vyras',
@@ -58,17 +60,122 @@ const UserProfile = () => {
 
   return (
     <>
-      <div>
-        <h1>
-          <b>Naudotojo paskyros informacija:</b>
-        </h1>
-      </div>
+
+        <h1 className='main-header mt-6'>Naudotojo paskyros informacija</h1>
+        <div className='flex flex-row justify-center gap-10'>
+          <button 
+           className='bg-black w-[200px] h-[50px] text-white font-semibold rounded-[5%] transition-colors duration-300 hover:text-yellow-500'
+           onClick={() => { navigate('/');}}>
+            Pagrindinis puslapis
+          </button>
+        </div>
+
       {user &&
         <>
-            <Button variant="contained" onClick={handleBackClick}>Atgal</Button>
-            <Button variant="contained" color="warning" onClick={handleProfileEditClick}>Redaguoti paskyrą</Button>
-            <Button variant="contained" color="error" onClick={handleProfileRemoveClick}>Trinti paskyrą</Button>
-            {showProfileEditModal && userContext.user?.decodedJwt?.role === '2' && (
+          <div className='flex flex-col w-full items-center'>
+          <div className='flex flex-col w-11/12 sm:w-3/5 md:w-2/5 my-6 py-6 gap-8 items-center bg-stone-300 border-2 border-gray-800 rounded-lg shadow-lg shadow-inner'>
+
+            <div className='flex flex-col items-center justify-center'>
+              <FontAwesomeIcon icon={faCircleUser} className='text-9xl text-gray-800 ' />
+            </div>
+
+            <div className='flex flex-col w-full items-center justify-center gap-5 mb-5'>
+
+              <div className='flex flex-row w-full gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                <p className='font-sans'>Vardas:</p>
+                </div>
+                <p className='font-sans font-bold'>{user.firstName}</p>
+              </div>
+
+              <div className='flex flex-row w-full gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                <p className='font-sans'>Pavardė:</p>
+                </div>
+                <p className='font-sans font-bold'>{user.lastName}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center w-full'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                <p className='font-sans'>Vartotojo vardas:</p>
+                </div>
+                <p className='font-sans font-bold'>{user.userName}</p>
+              </div>
+
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>El. pašto adresas:</p>
+                </div>
+                  <p className='font-sans font-bold'>{user.email}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>Miestas:</p>
+                </div>
+                  <p className='font-sans font-bold'>{user.city}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>Gimimo data:</p>
+                </div>
+                  <p className='font-sans font-bold'>{user.birthDate.slice(0, 10)}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>Lytis:</p>
+                </div>
+                  <p className='font-sans font-bold'>{Gender[user.gender]}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>Telefono numeris:</p>
+                </div>
+                  <p className='font-sans font-bold'>{user.phoneNumber}</p>
+              </div>
+
+              <div className='flex flex-row gap-3 justify-center'>
+                <div className='flex flex-row justify-center items-center gap-2'>
+                  <p className='font-sans'>Paskyros sukūrimo data:</p>
+                </div>
+                  <p className='font-sans font-bold'>{user.creationTime.slice(0, 10)}</p>
+              </div>
+
+              {userContext.user?.decodedJwt?.role === '0' && (
+                <AdminProfilePanel user={user} />
+              )}
+              {userContext.user?.decodedJwt?.role === '1' && (
+                  <UserProfilePanel user={user} />
+              )}
+              {userContext.user?.decodedJwt?.role === '2' && (
+                  <SpecialistProfilePanel user={user} />
+              )}
+
+            </div>
+            
+              <div className='flex flex-col md:flex-row gap-3 justify-center items-center'>
+
+                <button 
+                  className='bg-blue-700 px-6 py-3 text-white font-semibold border-2 border-black w-[190px]'
+                  onClick={handleProfileEditClick}>
+                  Redaguoti paskyrą
+                </button>
+
+                <button 
+                  className='bg-red-700 px-6 py-3 text-white font-semibold border-2 border-black w-[190px]'
+                  onClick={handleProfileRemoveClick}>
+                  Trinti paskyrą
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+          {showProfileEditModal && userContext.user?.decodedJwt?.role === '2' && (
                 <SpecialistProfileEditModal
                 open={showProfileEditModal}
                 handleClose={handleProfileEditModalClose}
@@ -90,73 +197,7 @@ const UserProfile = () => {
                 user={user}
                 />
             )}
-            <Card className={styles.profileCard}>
-                <Grid container rowSpacing={2} spacing={1}>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Vardas:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.firstName}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Pavardė:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.lastName}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Vartotojo vardas:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.userName}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                El. pašto adresas:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.email}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Miestas:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.city}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Gimimo data:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.birthDate.slice(0, 10)}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Lytis:
-                </Grid>
-                <Grid item xs={8}>
-                    {Gender[user.gender]}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Telefono numeris:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.phoneNumber}
-                </Grid>
-                <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-                Paskyros sukūrimo data:
-                </Grid>
-                <Grid item xs={8}>
-                    {user.creationTime.slice(0, 10)}
-                </Grid>
-                </Grid>
-            </Card>
-            {userContext.user?.decodedJwt?.role === '0' && (
-                <AdminProfilePanel user={user} />
-            )}
-            {userContext.user?.decodedJwt?.role === '1' && (
-                <UserProfilePanel user={user} />
-            )}
-            {userContext.user?.decodedJwt?.role === '2' && (
-                <SpecialistProfilePanel user={user} />
-            )}
+
         </>
       }
     </>

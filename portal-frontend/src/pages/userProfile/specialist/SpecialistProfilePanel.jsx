@@ -4,43 +4,46 @@ import styles from '../UserProfile.module.css';
 export default function SpecialistProfilePanel ({user}) {
 
   return (
-    <Card className={styles.profileCard}>
-      <Grid container rowSpacing={2} spacing={1}>
-        <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-            Aprašymas:
-        </Grid>
-        <Grid item xs={8}>
-          {user.description}
-        </Grid>
-        <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-          Patirtis:
-        </Grid>
-        <Grid item xs={8}>
-          {user.experience}
-        </Grid>
-        <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-          Išsilavinimas:
-        </Grid>
-        <Grid item xs={8}>
-          {user.education}
-        </Grid>
-        <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-          Tabelio kodas:
-        </Grid>
-        <Grid item xs={8}>
-          {user.agreementId}
-        </Grid>
-        <Grid item xs={4} style={{ fontWeight: 'bold' }}>
-          Nuotrauka:
-        </Grid>
-        <Grid item xs={8}>
+    <>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Aprašymas:</p>
+        </div>
+          <p className='font-sans font-bold'>{user.description}</p>
+      </div>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Patirtis:</p>
+        </div>
+          <p className='font-sans font-bold'>{user.experience}</p>
+      </div>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Išsilavinimas:</p>
+        </div>
+          <p className='font-sans font-bold'>{user.education}</p>
+      </div>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Tabelio kodas:</p>
+        </div>
+          <p className='font-sans font-bold'>{user.agreementId}</p>
+      </div>
+
+      <div className='flex flex-row gap-3 justify-center'>
+        <div className='flex flex-row justify-center items-center gap-2'>
+          <p className='font-sans'>Nuotrauka:</p>
+        </div>
           <img 
             src={user.photo} 
             alt="" 
             style={{ width: '150px', height: '150px', objectFit: 'cover' }}
           />
-        </Grid>
-      </Grid>
-    </Card>
+      </div>
+    </>
   );
 }
