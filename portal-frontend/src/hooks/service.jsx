@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getServicesList, getServicesListSpecialist, createService, approveService } from '../services/api';
+import { getServicesList, getServicesListSpecialist, createService, approveService, updateService, removeService } from '../services/api';
 import toastService from '../services/toastService';
 
 export const useServicesList = (queryParams) => {
@@ -40,6 +40,37 @@ export const useCreateService = () => {
     onSuccess: (e) => {
       if(e !== undefined)
         toastService.success('Paslauga sėkmingai sukurta!');
+      queryClient.invalidateQueries(['get-service-list-specialist']);
+    },
+  });
+};
+
+export const useUpdateService = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateService,
+    onSuccess: (e) => {
+      if(e !== undefined)
+        toastService.success('Paslauga sėkmingai atnaujinta!');
+      queryClient.invalidateQueries(['get-service-list-specialist']);
+    },
+  });
+};
+
+export const useRemoveService = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: removeService,
+    onSuccess: (e) => {
+
+      if(e !== undefined)
+        if(e !== '')
+          toastService.success(e);
+        else
+          toastService.success('Paslauga sėkmingai pašalinta!');
+
       queryClient.invalidateQueries(['get-service-list-specialist']);
     },
   });

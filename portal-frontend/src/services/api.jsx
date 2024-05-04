@@ -189,6 +189,24 @@ export async function createService(service) {
     });
 }
 
+export async function updateService(service) {
+  return await instance
+    .put('service', service)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+}
+
+export async function removeService(serviceId){
+  return await instance
+    .delete(`service/${serviceId}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      toastService.error(err.response.data);
+    });
+};
+
 export async function getServiceCategories() {
   return await instance
     .get('service/categories-list')
