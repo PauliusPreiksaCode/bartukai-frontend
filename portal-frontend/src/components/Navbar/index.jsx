@@ -65,6 +65,12 @@ const Navbar = () => {
 
         {userAccessLevel === '0' && (
           <li className='navbar-ul-item'>
+            <Link to="/admin-panel/NonApprovedServices">Nepatvirtintos paslaugas</Link>
+          </li>
+        )}
+
+        {userAccessLevel === '0' && (
+          <li className='navbar-ul-item'>
             <Link to="/admin-panel/orders">Peržiūrėti užsakymus</Link>
           </li>
         )}
@@ -106,7 +112,7 @@ const Navbar = () => {
         {showMenu && (
           <div className='lg:hidden flex flex-column fixed right-5 top-11 bg-white opacity-90 z-50 text-black border border-gray-300 rounded p-4'>
             <ul className='flex flex-col'>
-              
+
               {userAccessLevel === undefined && (
               <li className='navbar-ul-item'>
                 <Link to="/register">Registruotis</Link>

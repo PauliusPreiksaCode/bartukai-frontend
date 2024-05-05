@@ -118,7 +118,7 @@ const Services = () => {
   }, []);
 
   useEffect(() => {
-    queryClient.invalidateQueries(['get-service-list', queryParams]);
+    queryClient.invalidateQueries(['get-service-list', queryParams]).then(() => {});
   }, [queryParams, queryClient]);
 
   useEffect(() => {

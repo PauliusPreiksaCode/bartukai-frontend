@@ -1,11 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getServicesList, getServicesListSpecialist, createService, approveService, updateService, removeService } from '../services/api';
+import {
+  getServicesList,
+  getServicesListSpecialist,
+  createService,
+  approveService,
+  updateService,
+  removeService,
+  getNonApprovedServicesList
+} from '../services/api';
 import toastService from '../services/toastService';
 
 export const useServicesList = (queryParams) => {
   return useQuery({
     queryKey: ['get-service-list', queryParams],
     queryFn: () => getServicesList(queryParams),
+    refetchOnWindowFocus: false,
+    refetchInterval: false,
+  });
+};
+
+export const useNonApprovedServicesList = () => {
+  return useQuery({
+    queryKey: ['get-non-approved-service-list'],
+    queryFn: () => getNonApprovedServicesList(),
     refetchOnWindowFocus: false,
     refetchInterval: false,
   });

@@ -8,13 +8,13 @@ export async function login(user) {
     .then((res) => {
       const token = res.data.token;
       const refreshToken = res.data.refreshToken;
-      authService.setCookies(token, refreshToken);
+      authService.setCookies(token, refreshToken)
       return {token , refreshToken};
     })
     .catch((err) => {
-      toastService.error(err.response.data);
-    });
-};
+      toastService.error(err.response.data)
+    })
+}
 
 export async function register(user) {
   const originalContentType = instance.defaults.headers['Content-Type'];
@@ -33,7 +33,7 @@ export async function register(user) {
   } finally {
     instance.defaults.headers['Content-Type'] = originalContentType;
   }
-};
+}
 
 export async function getUser() {
   return await instance
@@ -42,7 +42,7 @@ export async function getUser() {
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function editUser(user) {
   const originalContentType = instance.defaults.headers['Content-Type'];
@@ -79,7 +79,7 @@ export async function renewToken() {
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function createRoom(room) {
   return await instance
@@ -88,7 +88,7 @@ export async function createRoom(room) {
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function getRoomsList() {
   return await instance
@@ -97,7 +97,7 @@ export async function getRoomsList() {
     .catch((err) => {
       throw err;
     });
-};
+}
 
 export async function updateRoom(room) {
   return await instance
@@ -106,7 +106,7 @@ export async function updateRoom(room) {
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function removeRoom(roomId){
   return await instance
@@ -115,7 +115,7 @@ export async function removeRoom(roomId){
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function getEquipmentList(){
   return await instance
@@ -124,7 +124,7 @@ export async function getEquipmentList(){
     .catch((err) => {
       throw err;
     });
-};
+}
 
 export async function createEquipment(equipment){
   return await instance
@@ -133,7 +133,7 @@ export async function createEquipment(equipment){
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function updateEquipment(equipment){
   return await instance
@@ -142,7 +142,7 @@ export async function updateEquipment(equipment){
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function deleteEquipment(equipmentId){
   return await instance
@@ -151,7 +151,7 @@ export async function deleteEquipment(equipmentId){
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function getServicesList(params) {
   return await instance
@@ -160,7 +160,16 @@ export async function getServicesList(params) {
     .catch((err) => {
       throw err;
     });
-} 
+}
+
+export async function getNonApprovedServicesList() {
+    return await instance
+        .get('service/non-approved-list')
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        });
+}
 
 export async function getServiceUnusedtimes(id) {
   return await instance
@@ -205,7 +214,7 @@ export async function removeService(serviceId){
     .catch((err) => {
       toastService.error(err.response.data);
     });
-};
+}
 
 export async function getServiceCategories() {
   return await instance
@@ -232,7 +241,7 @@ export async function getAvailableRooms(dateFrom, dateTo) {
     .catch((err) => {
       throw err;
     });
-};
+}
 
 export async function getAvailableEquipment(dateFrom, dateTo) {
   return await instance

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, IconButton} from '@mui/material';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { ServiceViewGeneralModal } from './components/ServiceViewGeneralModal';
-import { useApproveService, useServicesList } from '../../../hooks/service';
+import {useApproveService, useNonApprovedServicesList} from '../../../hooks/service';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
 import { useQueryClient } from '@tanstack/react-query';
@@ -103,15 +103,14 @@ export default function NonApprovedServices() {
   const queryClient = useQueryClient();
   const approveService = useApproveService();
 
-  const { data, isLoading, isFetching} = useServicesList(queryParams);
+  const { data, isLoading, isFetching} = useNonApprovedServicesList();
 
   useEffect(() => {
-    queryClient.invalidateQueries(['get-service-list', queryParams]);
+    queryClient.invalidateQueries(['get-non-approved-service-list']).then(() => {});
   }, [queryParams, queryClient]);
 
   useEffect(() => {
-    const approvedServices = data?.filter((x) => !x.isVerified);
-    setGridRows(approvedServices || []);
+    setGridRows(data || []);
   }, [data]);
 
 
