@@ -1,5 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRoomsList, updateRoom, createRoom, removeRoom } from '../services/api';
+import {
+  getRoomsList,
+  updateRoom,
+  createRoom,
+  removeRoom,
+  getRoomOccupancyList,
+  getEquipmentOccupancyList
+} from '../services/api';
 import toastService from '../services/toastService';
 
 export const useRoomsList = () => {
@@ -7,6 +14,24 @@ export const useRoomsList = () => {
     queryKey: ['get-room-list'], 
     queryFn: getRoomsList,
     refetchOnWindowFocus: false, 
+    refetchInterval: false
+  });
+};
+
+export const useRoomOccupancyList = (id) => {
+  return useQuery({
+    queryKey: ['get-room-occupancy-list', id],
+    queryFn: () => getRoomOccupancyList(id),
+    refetchOnWindowFocus: false,
+    refetchInterval: false
+  });
+};
+
+export const useEquipmentOccupancyList = (id) => {
+  return useQuery({
+    queryKey: ['get-equipment-occupancy-list', id],
+    queryFn: () => getEquipmentOccupancyList(id),
+    refetchOnWindowFocus: false,
     refetchInterval: false
   });
 };

@@ -90,7 +90,6 @@ const Rooms = () => {
   const { data, isLoading, isFetching} = useRoomsList();
   useEffect(() => {
     setGridRows(data || []);
-    console.log(data);
   }, [data]);
 
   const updateRoom = useUpdateRoom();

@@ -67,7 +67,6 @@ const Equipment = () => {
   const { data, isLoading, isFetching} = useEquipmentList();
   useEffect(() => {
     setGridRows(data || []);
-    console.log(data);
   }, [data]);
 
   const createEquipment = useCreateEquipment();

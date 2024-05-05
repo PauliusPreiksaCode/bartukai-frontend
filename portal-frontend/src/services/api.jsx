@@ -99,6 +99,24 @@ export async function getRoomsList() {
     });
 }
 
+export async function getRoomOccupancyList(id) {
+    return await instance
+        .get(`room/occupancy/${id}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        });
+}
+
+export async function getEquipmentOccupancyList(id) {
+    return await instance
+        .get(`equipment/occupancy/${id}`)
+        .then((res) => res.data)
+        .catch((err) => {
+            throw err;
+        });
+}
+
 export async function updateRoom(room) {
   return await instance
     .put('room', room)
